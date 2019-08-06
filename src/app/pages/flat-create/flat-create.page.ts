@@ -20,7 +20,7 @@ export class FlatCreatePage implements OnInit {
 
   createFlat() {
     this.flatService.addFlat(this.flat).then(() => {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/flat-list');
     })
   }
 
