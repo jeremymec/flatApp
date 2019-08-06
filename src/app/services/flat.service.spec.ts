@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { FlatService } from './flat.service';
 
-describe('FlatsService', () => {
+describe('FlatService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {

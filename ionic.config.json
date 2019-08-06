@@ -1,5 +1,7 @@
 {
   "name": "flatApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

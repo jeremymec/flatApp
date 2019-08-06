@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>flatCreate</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label position="stacked">Name</ion-label>
+    <ion-input [(ngModel)]="flat.name"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" fill="solid" color="success" (click)="createFlat()">
+    <ion-icon name="add"></ion-icon>
+    Create Flat
+  </ion-button>
+
+</ion-content>
