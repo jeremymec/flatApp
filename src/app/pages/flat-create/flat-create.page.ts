@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Flat, FlatService} from '../../services/flat.service';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-flat-create',
@@ -13,15 +14,17 @@ export class FlatCreatePage implements OnInit {
     name: ''
   };
 
-  constructor(private router: Router, private flatService: FlatService) { }
+  constructor(private router: Router, private flatService: FlatService, private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
 
   createFlat() {
-    this.flatService.addFlat(this.flat).then(() => {
+    this.flatService.addFlat(this.flat).then((docRef) => {
+      const userId = this.authService.userDetails().uid;
+      this.flatService.joinFlat(docRef.id, userId);
       this.router.navigateByUrl('/flat-list');
-    })
+    });
   }
 
 }

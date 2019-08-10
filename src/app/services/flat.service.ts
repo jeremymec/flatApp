@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 export interface Flat {
   id?: string;
@@ -54,4 +55,11 @@ export class FlatService {
   deleteFlat(id: string): Promise<void> {
     return this.flatCollection.doc(id).delete();
   }
+
+  joinFlat(flatId, userId) {
+    const data = { userId };
+    const members = this.afs.collection('flats').doc(flatId).collection('members');
+    members.add(data);
+  }
+
 }
