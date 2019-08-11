@@ -14,6 +14,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule, FirestoreSettingsToken} from '@angular/fire/firestore';
 import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
@@ -24,7 +25,8 @@ firebase.initializeApp(environment.firebase);
             AppRoutingModule,
       AngularFireModule.initializeApp(environment.firebase),
       AngularFirestoreModule,
-      AngularFireAuthModule
+      AngularFireAuthModule,
+      HttpClientModule
             ],
   providers: [
     StatusBar,

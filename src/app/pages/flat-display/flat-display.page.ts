@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Flat, FlatService} from '../../services/flat.service';
 
 @Component({
   selector: 'app-flat-display',
@@ -9,15 +8,11 @@ import {Flat, FlatService} from '../../services/flat.service';
 })
 export class FlatDisplayPage implements OnInit {
 
-  flat: Flat = {
-    name: ''
-  };
 
-  constructor(private activatedRoute: ActivatedRoute, private flatService: FlatService) { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.flatService.getFlat(id);
+
   }
 
 }

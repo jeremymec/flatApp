@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Flat, FlatService} from '../../services/flat.service';
+import {RestService, User} from '../../services/rest.service';
 
 @Component({
   selector: 'app-flat-list',
@@ -9,12 +9,15 @@ import {Flat, FlatService} from '../../services/flat.service';
 })
 export class FlatListPage implements OnInit {
 
-  private flats: Observable<Flat[]>;
+  private users: User[] = [];
 
-  constructor(private flatService: FlatService) { }
+  constructor(private restService: RestService) { }
 
   ngOnInit() {
-    this.flats = this.flatService.getFlats()
+    this.restService.getUsers().subscribe((users: User[]) => {
+
+      this.users = users;
+    });
   }
 
 }

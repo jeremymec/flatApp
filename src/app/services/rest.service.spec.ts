@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FlatService } from './flat.service';
+import { RestService } from './rest.service';
 
-describe('FlatService', () => {
+describe('RestService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FlatService = TestBed.get(FlatService);
+    const service: RestService = TestBed.get(RestService);
     expect(service).toBeTruthy();
   });
 });
