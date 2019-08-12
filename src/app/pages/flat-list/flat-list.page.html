@@ -11,10 +11,30 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-list>
-    <ion-item *ngFor="let user of users">
-      {{ user.name }}
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="ion-text-start">
+          <div *ngIf="flats.length <= 0; else flatList">
+            <ion-text color="primary">
+              <h2>You don't belong to any flats yet, why not create or join one?</h2>
+            </ion-text>
+            <ion-button>Create a Flat</ion-button>
+            <ion-button>Join a Flat</ion-button>
+          </div>
+
+          <ng-template #flatList>
+            <ion-list>
+              <ion-item *ngFor="let flat of flats">
+                {{ flat.name }}
+              </ion-item>
+            </ion-list>
+          </ng-template>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
 
 </ion-content>

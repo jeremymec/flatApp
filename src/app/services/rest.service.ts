@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export class User {
+    // tslint:disable-next-line:variable-name
   uid: number;
   name: string;
 
@@ -13,6 +14,15 @@ export class User {
     Object.assign(this, values);
   }
 
+}
+
+export class Flat {
+    name: string;
+
+    // tslint:disable-next-line:ban-types
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
+    }
 }
 
 @Injectable({
@@ -45,17 +55,17 @@ export class RestService {
             }));
   }
 
-  public createUser(user: User): Observable<User> {
-    console.log("Request caught, user with " + user.name + " and " + user.uid);
+  public createUser(user: User) {
+    console.log('Request caught, user with ' + user + user.name + ' and ' + user.uid);
 
     return this.httpClient
-        .post(this.baseUrl + '/users', user)
+        .post<User>(this.baseUrl + '/users', user)
         .pipe(
             map(response => {
               console.log('response is:' + response);
               return new User(response);
             })
-        );
+        ).subscribe();
   }
 
   public updateUser(user: User) {
@@ -72,4 +82,13 @@ export class RestService {
     return this.httpClient
         .delete(this.baseUrl + '/users/' + userId);
   }
+
+  public getUsersFlats(userId: string): Observable<Flat[]> {
+        return this.httpClient
+            .get<Flat[]>(this.baseUrl + '/users/' + userId + '/flats')
+            .pipe(
+                map(flats  => {
+                    return  flats.map((flat) =>  new Flat(flat));
+                }));
+    }
 }

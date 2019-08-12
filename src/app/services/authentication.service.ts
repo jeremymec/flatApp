@@ -8,17 +8,20 @@ import {error} from 'util';
 })
 export class AuthenticationService {
 
-  constructor(private restService: RestService) { }
+  loggedInUserUid = null;
+
+  constructor(private restService: RestService) {
+
+  }
 
   registerUser(value) {
+
     return new Promise<any>((resolve, reject) => {
       firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
-          .then((user) => {
-            this.onRegisterUser(new User({uid: user.user.uid, name: value.email}));
-            resolve();
-          }).catch((err) => {
-        reject();
-      });
+          .then(
+              res => {
+                this.onRegisterUser(new User({uid: res.user.uid, name: value.email})); resolve(res); },
+              err => reject(err));
     });
   }
 
@@ -26,7 +29,8 @@ export class AuthenticationService {
     return new Promise<any>((resolve, reject) => {
       firebase.auth().signInWithEmailAndPassword(value.email, value.password)
           .then(
-              res => resolve(res),
+              res => {
+                this.loggedInUserUid = res.user.uid; resolve(res); },
               err => reject(err));
     });
   }
@@ -37,6 +41,7 @@ export class AuthenticationService {
         firebase.auth().signOut()
             .then(() => {
               console.log('Log Out');
+              this.loggedInUserUid = null;
               resolve();
             }).catch((err) => {
           reject();
