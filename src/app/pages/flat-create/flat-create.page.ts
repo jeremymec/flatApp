@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
+import {Flat, RestService} from '../../services/rest.service';
+import {NgModel} from '@angular/forms';
 
 @Component({
   selector: 'app-flat-create',
@@ -9,13 +11,16 @@ import {AuthenticationService} from '../../services/authentication.service';
 })
 export class FlatCreatePage implements OnInit {
 
-  constructor(private router: Router, private authService: AuthenticationService) { }
+  flatName: string;
+  createdFlat: Flat;
+
+  constructor(private router: Router, private authService: AuthenticationService, private restService: RestService) { }
 
   ngOnInit() {
   }
 
-  createFlat() {
-
+  createButtonCallback() {
+      this.restService.createUsersFlat(this.authService.userDetails().uid, new Flat({name: this.flatName})).subscribe(
+      (value => this.createdFlat = new Flat({name: value.name, invite: value.invite})));
   }
-
 }

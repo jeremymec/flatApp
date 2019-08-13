@@ -1,19 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>flatCreate</ion-title>
+    <ion-title>Create a Flat</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-item>
-    <ion-label position="stacked">Name</ion-label>
-    <ion-input [(ngModel)]="flat.name"></ion-input>
-  </ion-item>
+  <ion-grid style="height: 25%">
+    <ion-row justify-content-center align-items-center style='height: 100%'>
+      <ion-col></ion-col>
+      <ion-col size="9"><ion-input [(ngModel)]="flatName" class="name-field" type="text" placeholder="Name your flat"></ion-input></ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row justify-content-center align-items-center style='height: 100%'>
+      <ion-col></ion-col>
+      <ion-col><ion-button (click)="createButtonCallback()">Create</ion-button></ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
 
-  <ion-button expand="block" fill="solid" color="success" (click)="createFlat()">
-    <ion-icon name="add"></ion-icon>
-    Create Flat
-  </ion-button>
+  <ion-text color="primary" ngModel="createdFlat?">
+    <h2>{{ createdFlat.invite }}</h2>
+  </ion-text>
+
 
 </ion-content>

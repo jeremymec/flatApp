@@ -5,11 +5,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/flat-create">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 
   <ion-grid>
     <ion-row>
@@ -19,8 +14,8 @@
             <ion-text color="primary">
               <h2>You don't belong to any flats yet, why not create or join one?</h2>
             </ion-text>
-            <ion-button>Create a Flat</ion-button>
-            <ion-button>Join a Flat</ion-button>
+            <ion-button (click)="createFlatCallback()">Create a Flat</ion-button>
+            <ion-button (click)="joinFlatCallback()">Join a Flat</ion-button>
           </div>
 
           <ng-template #flatList>

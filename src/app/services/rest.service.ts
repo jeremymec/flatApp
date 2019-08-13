@@ -18,6 +18,7 @@ export class User {
 
 export class Flat {
     name: string;
+    invite: string;
 
     // tslint:disable-next-line:ban-types
     constructor(values: Object = {}) {
@@ -90,5 +91,17 @@ export class RestService {
                 map(flats  => {
                     return  flats.map((flat) =>  new Flat(flat));
                 }));
+    }
+
+    public createUsersFlat(userId: string, flat: Flat) {
+      console.log(flat);
+      return this.httpClient
+            .post<Flat>(this.baseUrl + '/users/' + userId + '/flats', flat)
+            .pipe(
+                map(response => {
+                    console.log('response is:' + response.name);
+                    return response;
+                })
+            );
     }
 }
