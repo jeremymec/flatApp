@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>flat-join</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-text>Have an invite code? Enter it here!</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input placeholder="Codes are six digits long" [(ngModel)]="flatCode"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-center align-items-center style='height: 100%'>
+      <ion-col>
+        <ion-button (click)="joinCallback()" [disabled]="flatCode === ''">Join Flat</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <div *ngIf="result === false">
+          <ion-col>
+            <h2>Invalid code, try again</h2>
+          </ion-col>
+        </div>
+      <div *ngIf="result === true">
+        <ion-col>
+          <h2>Flat joined!</h2>
+        </ion-col>
+      </div>
+    </ion-row>
+  </ion-grid>
+</ion-content>

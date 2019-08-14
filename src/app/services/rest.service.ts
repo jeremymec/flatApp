@@ -8,6 +8,8 @@ export class User {
     // tslint:disable-next-line:variable-name
   uid: number;
   name: string;
+    // tslint:disable-next-line:variable-name
+  flat_id?: number;
 
   // tslint:disable-next-line:ban-types
   constructor(values: Object = {}) {
@@ -17,6 +19,7 @@ export class User {
 }
 
 export class Flat {
+    id?: number;
     name: string;
     invite: string;
 
@@ -70,11 +73,13 @@ export class RestService {
   }
 
   public updateUser(user: User) {
-    return this.httpClient
-        .put(this.baseUrl + '/users' + user.uid, user)
+      console.log('Request caught, user with ' + user.flat_id);
+      return this.httpClient
+        .patch(this.baseUrl + '/users/' + user.uid, {flat_id: 'nil'})
         .pipe(
             map(response => {
-              return new User(response);
+                console.log(response);
+                return new User(response);
             })
         );
   }
@@ -84,12 +89,12 @@ export class RestService {
         .delete(this.baseUrl + '/users/' + userId);
   }
 
-  public getUsersFlats(userId: string): Observable<Flat[]> {
+  public getUsersFlat(userId: string) {
         return this.httpClient
-            .get<Flat[]>(this.baseUrl + '/users/' + userId + '/flats')
+            .get<Flat>(this.baseUrl + '/users/' + userId + '/flats')
             .pipe(
-                map(flats  => {
-                    return  flats.map((flat) =>  new Flat(flat));
+                map(response  => {
+                    return new Flat(response);
                 }));
     }
 
@@ -104,4 +109,23 @@ export class RestService {
                 })
             );
     }
+
+    public getFlatIdByInviteCode(inviteCode: string, userId: string) {
+      return this.httpClient.get(this.baseUrl + '/flats/' + inviteCode).pipe(
+          map(response => {
+              return new Flat(response);
+          }));
+    }
+
+    public joinFlatById(flatId: number, userId: string) {
+      return this.httpClient
+            .patch(this.baseUrl + '/users/' + userId, {flat_id: flatId})
+            .pipe(
+                map(response => {
+                    console.log('Response is ' + response);
+                    return new User(response);
+                })
+            );
+    }
+
 }

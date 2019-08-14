@@ -4,13 +4,11 @@ import {AuthGuard} from './services.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)},
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
-  { path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule' },
   { path: 'flat-list', loadChildren: './pages/flat-list/flat-list.module#FlatListPageModule', canActivate: [AuthGuard] },
-  { path: 'flat-create', loadChildren: './pages/flat-create/flat-create.module#FlatCreatePageModule' },
-  { path: 'flat-display', loadChildren: './pages/flat-display/flat-display.module#FlatDisplayPageModule' },
+  { path: 'flat-create', loadChildren: './pages/flat-create/flat-create.module#FlatCreatePageModule', canActivate: [AuthGuard]  },
+  { path: 'flat-join', loadChildren: './pages/flat-join/flat-join.module#FlatJoinPageModule', canActivate: [AuthGuard] },
 
 
 ];

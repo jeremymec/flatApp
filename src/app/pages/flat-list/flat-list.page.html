@@ -10,26 +10,21 @@
     <ion-row>
       <ion-col>
         <div class="ion-text-start">
-          <div *ngIf="flats.length <= 0; else flatList">
+          <div *ngIf="flat == undefined">
             <ion-text color="primary">
               <h2>You don't belong to any flats yet, why not create or join one?</h2>
             </ion-text>
             <ion-button (click)="createFlatCallback()">Create a Flat</ion-button>
             <ion-button (click)="joinFlatCallback()">Join a Flat</ion-button>
           </div>
-
-          <ng-template #flatList>
-            <ion-list>
-              <ion-item *ngFor="let flat of flats">
-                {{ flat.name }}
-              </ion-item>
-            </ion-list>
-          </ng-template>
+          <div *ngIf="flat != undefined">
+            <ion-text [(ngModel)]="flat" ngDefaultControl>
+              <h3>You're currently in {{ flat.name }} </h3>
+            </ion-text>
+            <ion-button (click)="leaveFlatCallback()">Leave this flat</ion-button>
+          </div>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
-
 </ion-content>

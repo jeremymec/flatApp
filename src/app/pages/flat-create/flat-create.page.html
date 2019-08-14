@@ -9,19 +9,37 @@
   <ion-grid style="height: 25%">
     <ion-row justify-content-center align-items-center style='height: 100%'>
       <ion-col></ion-col>
-      <ion-col size="9"><ion-input [(ngModel)]="flatName" class="name-field" type="text" placeholder="Name your flat"></ion-input></ion-col>
+      <ion-col size="9"><ion-input [disabled]="createdFlat !== undefined" [(ngModel)]="flatName" class="name-field" type="text" placeholder="Name your flat"></ion-input></ion-col>
       <ion-col></ion-col>
     </ion-row>
     <ion-row justify-content-center align-items-center style='height: 100%'>
       <ion-col></ion-col>
-      <ion-col><ion-button (click)="createButtonCallback()">Create</ion-button></ion-col>
+      <ion-col>
+        <ion-button [disabled]="createdFlat !== undefined" (click)="createButtonCallback()">Create</ion-button>
+      </ion-col>
       <ion-col></ion-col>
     </ion-row>
+    <div *ngIf="createdFlat !== undefined">
+      <ion-row justify-content-center align-items-center style='height: 100%'>
+          <ion-col>
+            <ion-text [(ngModel)]="createdFlat" ngDefaultControl>
+              <h3>Your flat {{ createdFlat.name }} has been created! <br> Give the code below to your friends so they can join.</h3>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row justify-content-center align-items-center style='height: 100%'>
+          <ion-col>
+              <ion-text id="invite-text" color="primary" [(ngModel)]="createdFlat" ngDefaultControl>
+                <h1>{{ createdFlat.invite }}</h1>
+              </ion-text>
+          </ion-col>
+      </ion-row>
+      <ion-row justify-content-center align-items-center style='height: 100%'>
+        <ion-col>
+          <ion-button (click)="doneCallback()">Done</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
   </ion-grid>
-
-  <ion-text color="primary" ngModel="createdFlat?">
-    <h2>{{ createdFlat.invite }}</h2>
-  </ion-text>
-
 
 </ion-content>

@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FlatDisplayPage } from './flat-display.page';
+import { FlatJoinPage } from './flat-join.page';
 
-describe('FlatDisplayPage', () => {
-  let component: FlatDisplayPage;
-  let fixture: ComponentFixture<FlatDisplayPage>;
+describe('FlatJoinPage', () => {
+  let component: FlatJoinPage;
+  let fixture: ComponentFixture<FlatJoinPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlatDisplayPage ],
+      declarations: [ FlatJoinPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FlatDisplayPage);
+    fixture = TestBed.createComponent(FlatJoinPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
