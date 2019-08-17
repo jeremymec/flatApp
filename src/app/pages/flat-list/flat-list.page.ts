@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Flat, RestService, User} from '../../services/rest.service';
 import {AuthenticationService} from '../../services/authentication.service';
@@ -12,25 +12,26 @@ import { Events } from '@ionic/angular';
 })
 export class FlatListPage implements OnInit {
 
-  private flat: Flat;
+  private flat = undefined;
   private userId: string;
 
   constructor(private restService: RestService, private authService: AuthenticationService, private navCtrl: NavController,
-              public events: Events) {
-    this.updateFlat();
-    events.subscribe('flat:updated', (flat) => {
-      console.log('Update Flat Called');
-      this.updateFlat();
-    });
+              private changeDetectorRef: ChangeDetectorRef) {
+
   }
 
   ngOnInit() {
-
+      this.updateModel();
   }
 
-  updateFlat() {
+  ionViewWillEnter() {
+    this.updateModel();
+  }
+
+  updateModel() {
     this.userId = this.authService.userDetails().uid;
     this.restService.getUsersFlat(this.userId).subscribe((flat => flat.invite !== undefined ? this.flat = flat : this.flat = undefined));
+    this.changeDetectorRef.detectChanges();
   }
 
   createFlatCallback() {
@@ -42,7 +43,7 @@ export class FlatListPage implements OnInit {
   }
 
   leaveFlatCallback() {
-    this.restService.updateUser(new User({uid: this.authService.userDetails().uid, flat_id: 'nil'})).subscribe(user => this.updateFlat());
+    this.restService.updateUser(new User({uid: this.authService.userDetails().uid, flat_id: 'nil'})).subscribe(user => this.updateModel());
   }
 
 }

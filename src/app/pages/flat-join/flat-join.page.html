@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>flat-join</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -19,7 +22,7 @@
     </ion-row>
     <ion-row justify-content-center align-items-center style='height: 100%'>
       <ion-col>
-        <ion-button (click)="joinCallback()" [disabled]="flatCode === ''">Join Flat</ion-button>
+        <ion-button (click)="joinCallback()" [disabled]="flatCode === '' || result">Join Flat</ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -31,6 +34,7 @@
       <div *ngIf="result === true">
         <ion-col>
           <h2>Flat joined!</h2>
+          <ion-button (click)="backCallback()" [disabled]="flatCode === ''">Go Home</ion-button>
         </ion-col>
       </div>
     </ion-row>

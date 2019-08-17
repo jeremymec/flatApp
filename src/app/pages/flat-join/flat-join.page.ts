@@ -23,8 +23,10 @@ export class FlatJoinPage implements OnInit {
     this.restService.getFlatIdByInviteCode(this.flatCode, this.authService.userDetails().uid).subscribe(
         flat => this.restService.joinFlatById(flat.id, this.authService.userDetails().uid).subscribe(
             user => this.result = (user.flat_id !== 0)));
-    this.events.publish('flat:updated', null);
-    console.log(this.result);
+  }
+
+  backCallback() {
+    this.navController.navigateRoot('flat-list');
   }
 
 }

@@ -29,6 +29,18 @@ export class Flat {
     }
 }
 
+export class TodoItem {
+    id: number;
+    content: string;
+    // tslint:disable-next-line:variable-name
+    due_date: string;
+
+    // tslint:disable-next-line:ban-types
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
+    }
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -124,6 +136,28 @@ export class RestService {
                 map(response => {
                     console.log('Response is ' + response);
                     return new User(response);
+                })
+            );
+    }
+
+    public getTodosByUserId(userId: string): Observable<TodoItem[]> {
+      return this.httpClient.get<TodoItem[]>(this.baseUrl + '/users/' + userId + '/flats/todos/todo_items').pipe(
+          map(responses => {
+              return responses.map((response) => {
+                  console.log('Todo list resp: ' + response.content);
+                  return new TodoItem(response);
+              });
+          })
+      );
+    }
+
+    public createTodoItem(userId: string, item: TodoItem) {
+        return this.httpClient
+            .post<TodoItem>(this.baseUrl + '/users/' + userId + '/flats/todos/todo_items', item)
+            .pipe(
+                map(response => {
+                    console.log('response is:' + response);
+                    return response;
                 })
             );
     }

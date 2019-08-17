@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>flatList</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,14 +13,14 @@
     <ion-row>
       <ion-col>
         <div class="ion-text-start">
-          <div *ngIf="flat == undefined">
+          <div *ngIf="flat === undefined">
             <ion-text color="primary">
               <h2>You don't belong to any flats yet, why not create or join one?</h2>
             </ion-text>
             <ion-button (click)="createFlatCallback()">Create a Flat</ion-button>
             <ion-button (click)="joinFlatCallback()">Join a Flat</ion-button>
           </div>
-          <div *ngIf="flat != undefined">
+          <div *ngIf="flat !== undefined">
             <ion-text [(ngModel)]="flat" ngDefaultControl>
               <h3>You're currently in {{ flat.name }} </h3>
             </ion-text>

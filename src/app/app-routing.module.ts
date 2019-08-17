@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'flat-list', loadChildren: './pages/flat-list/flat-list.module#FlatListPageModule', canActivate: [AuthGuard] },
   { path: 'flat-create', loadChildren: './pages/flat-create/flat-create.module#FlatCreatePageModule', canActivate: [AuthGuard]  },
-  { path: 'flat-join', loadChildren: './pages/flat-join/flat-join.module#FlatJoinPageModule', canActivate: [AuthGuard] },
+  { path: 'flat-join', loadChildren: './pages/flat-join/flat-join.module#FlatJoinPageModule', canActivate: [AuthGuard] },  { path: 'todo-view', loadChildren: './pages/todo-view/todo-view.module#TodoViewPageModule' },
+
 
 
 ];

@@ -33,14 +33,14 @@ export class AppComponent {
     this.navigate =
         [
           {
-            title : 'Login',
-            url   : '/login',
-            icon  : 'finger-print'
+            title : 'Flat',
+            url   : '/flat-list',
+            icon  : 'home'
           },
           {
-            title : 'Register',
-            url   : '/register',
-            icon  : 'filing'
+            title : 'To-do List',
+            url   : '/todo-view',
+            icon  : 'checkbox'
           },
         ];
   }
