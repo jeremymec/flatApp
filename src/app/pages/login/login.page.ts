@@ -32,6 +32,10 @@ export class LoginPage implements OnInit {
     ]
   };
 
+  ionViewWillEnter() {
+      this.validationsForm.reset();
+  }
+
   loginUser(value) {
     this.authService.loginUser(value)
         .then(res => {

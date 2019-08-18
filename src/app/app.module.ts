@@ -15,6 +15,8 @@ import {AngularFirestoreModule, FirestoreSettingsToken} from '@angular/fire/fire
 import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import {AuthGuard, FlatGuard} from './services.guard';
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
@@ -31,6 +33,9 @@ firebase.initializeApp(environment.firebase);
   providers: [
     StatusBar,
     SplashScreen,
+      SocialSharing,
+      AuthGuard,
+      FlatGuard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent]

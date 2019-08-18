@@ -30,6 +30,10 @@ export class FlatCreatePage implements OnInit {
       }));
   }
 
+  backCallback() {
+    this.navCtrl.navigateBack('/flat-list');
+  }
+
   doneCallback() {
     this.navCtrl.navigateForward('/flat-list');
   }

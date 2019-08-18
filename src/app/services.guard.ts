@@ -8,6 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import {RestService} from './services/rest.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,22 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['/login']);
           resolve(false);
         }
+      });
+    });
+  }
+}
+
+export class FlatGuard implements CanActivate {
+  constructor(private router: Router, private restService: RestService) {}
+  canActivate(
+      next: ActivatedRouteSnapshot,
+      state: RouterStateSnapshot
+  ): boolean | Observable<boolean> | Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const userId = firebase.auth().currentUser.uid;
+      this.restService.getUsersFlat(userId).subscribe(flat => {
+        console.log(flat.id);
+        if (flat.id !== undefined) { resolve(true ); } else { resolve(false); }
       });
     });
   }

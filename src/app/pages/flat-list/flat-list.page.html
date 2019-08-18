@@ -10,7 +10,7 @@
 <ion-content>
 
   <ion-grid>
-    <ion-row>
+    <ion-row text-center>
       <ion-col>
         <div class="ion-text-start">
           <div *ngIf="flat === undefined">
@@ -20,14 +20,30 @@
             <ion-button (click)="createFlatCallback()">Create a Flat</ion-button>
             <ion-button (click)="joinFlatCallback()">Join a Flat</ion-button>
           </div>
-          <div *ngIf="flat !== undefined">
-            <ion-text [(ngModel)]="flat" ngDefaultControl>
-              <h3>You're currently in {{ flat.name }} </h3>
-            </ion-text>
-            <ion-button (click)="leaveFlatCallback()">Leave this flat</ion-button>
-          </div>
         </div>
       </ion-col>
     </ion-row>
+    <div *ngIf="flat !== undefined">
+      <ion-row text-center>
+        <ion-col>
+          <ion-text [(ngModel)]="flat" ngDefaultControl>
+            <h3>You're currently in {{ flat.name }} </h3>
+          </ion-text>
+          <ion-button (click)="editNameCallback()">Change Flat Name</ion-button>
+          <ion-button color="danger" (click)="leaveFlatCallback()">Leave this flat</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col>
+          <ion-text [(ngModel)]="flat" ngDefaultControl>
+            <h3>Invite Code: {{ flat.invite }}</h3>
+            <ion-button color="tertiary" (click)="shareButtonCallback()">
+              <ion-icon slot="start" name="share"></ion-icon>
+              Share Code
+            </ion-button>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </div>
   </ion-grid>
 </ion-content>

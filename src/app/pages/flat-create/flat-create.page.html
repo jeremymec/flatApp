@@ -15,12 +15,13 @@
       <ion-col size="9"><ion-input [disabled]="createdFlat !== undefined" [(ngModel)]="flatName" class="name-field" type="text" placeholder="Name your flat"></ion-input></ion-col>
       <ion-col></ion-col>
     </ion-row>
-    <ion-row justify-content-center align-items-center style='height: 100%'>
-      <ion-col></ion-col>
+    <ion-row text-center>
+
       <ion-col>
         <ion-button [disabled]="createdFlat !== undefined" (click)="createButtonCallback()">Create</ion-button>
+        <ion-button color="medium" (click)="backCallback()">Back</ion-button>
       </ion-col>
-      <ion-col></ion-col>
+
     </ion-row>
     <div *ngIf="createdFlat !== undefined">
       <ion-row justify-content-center align-items-center style='height: 100%'>

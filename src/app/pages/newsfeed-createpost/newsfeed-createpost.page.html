@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create a Post</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="validationsForm"  (ngSubmit)="tryCreate(validationsForm.value)">
+  <ion-grid>
+    <ion-row text-center>
+      <ion-col>
+        <ion-item>
+          <ion-label  position="floating" color="primary">Title</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validationMessages.title">
+            <div class="error-message" *ngIf="validationsForm.get('title').hasError(validation.type) && (validationsForm.get('title').dirty || validationsForm.get('title').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row text-center>
+      <ion-col>
+        <ion-item>
+          <ion-textarea auto-grow="true" placeholder="Enter the posts content here..." formControlName="content"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-content padding></ion-content>
+    <ion-content padding></ion-content>
+    <ion-row text-center>
+      <ion-col>
+        <ion-button  class="submit-btn" type="submit"  [disabled]="!validationsForm.valid">Post</ion-button>
+        <label class="error-message">{{errorMessage}}</label>
+        <label class="success-message">{{successMessage}}</label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </form>
+</ion-content>

@@ -11,15 +11,24 @@
   <ion-grid>
     <ion-row>
         <ion-list>
-          <ion-item *ngFor="let item of todoItems | async">
+          <ion-item *ngFor="let item of todoItems">
             <ion-text>{{ item.content }}</ion-text>
-            <ion-checkbox class="checkbox" color="primary"></ion-checkbox>
+            <ion-checkbox [(ngModel)]="item.selected" class="checkbox" color="primary"></ion-checkbox>
           </ion-item>
         </ion-list>
     </ion-row>
-    <ion-row justify-content-center align-items-center style='height: 100%'>
-      <ion-button expand="block" color="success">Mark as Done</ion-button>
-    </ion-row>
+    <div *ngIf="todoItems != undefined;else noItems">
+      <div *ngIf="todoItems.length > 0;else noItems">
+      <ion-row justify-content-center align-items-center style='height: 100%'>
+        <ion-button (click)="doneButtonCallback()" expand="block" color="success">Mark as Done</ion-button>
+      </ion-row>
+      </div>
+    </div>
+    <ng-template #noItems>
+      <ion-row text-center>
+        <ion-text>Create a task by pressing the button!</ion-text>
+      </ion-row>
+    </ng-template>
   </ion-grid>
 </ion-content>
 

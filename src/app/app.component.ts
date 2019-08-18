@@ -42,6 +42,16 @@ export class AppComponent {
             url   : '/todo-view',
             icon  : 'checkbox'
           },
+          {
+            title : 'Newsfeed',
+            url   : '/newsfeed',
+            icon  : 'paper'
+          },
+            {
+                title : 'Account',
+                url   : '/account',
+                icon  : 'finger-print'
+            },
         ];
   }
 }

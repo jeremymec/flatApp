@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {RestService, TodoItem} from '../../services/rest.service';
 import {AuthenticationService} from '../../services/authentication.service';
-import {AlertController} from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-todo-view',
@@ -11,21 +11,36 @@ import {AlertController} from '@ionic/angular';
 })
 export class TodoViewPage implements OnInit {
 
-  private todoItems: Observable<TodoItem[]>;
+  private todoItems: TodoItem[];
 
-  constructor(private restService: RestService, private authService: AuthenticationService, private alertController: AlertController) { }
+  constructor(private restService: RestService, private authService: AuthenticationService, private alertController: AlertController,
+              public toastController: ToastController) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
     this.updateModel();
+    for (const item of this.todoItems) {
+      item.selected = false;
+    }
   }
 
   updateModel() {
+    console.log('Model Updated');
     const userId = this.authService.userDetails().uid;
-    this.todoItems = this.restService.getTodosByUserId(userId);
-    this.todoItems.subscribe();
+    const todoItemsObservable = this.restService.getTodosByUserId(userId);
+    todoItemsObservable.subscribe(items => {
+      this.todoItems = items;
+    });
+  }
+
+  async presentToastCreated() {
+    const toast = await this.toastController.create({
+      message: 'Task created!',
+      duration: 2000
+    });
+    toast.present();
   }
 
   async presentAlertCreate() {
@@ -36,10 +51,6 @@ export class TodoViewPage implements OnInit {
           name: 'name1',
           type: 'text',
           placeholder: 'Task Name'
-        },
-        {
-          name: 'name5',
-          type: 'date'
         }
       ],
       buttons: [
@@ -53,16 +64,25 @@ export class TodoViewPage implements OnInit {
         }, {
           text: 'Create',
           handler: data => {
-            const itemToCreate = new TodoItem({content: data.name1, due_data: data.name5});
+            const itemToCreate = new TodoItem({content: data.name1});
             const userId = this.authService.userDetails().uid;
-            this.restService.createTodoItem(userId, itemToCreate).subscribe();
-            this.updateModel();
+            this.restService.createTodoItem(userId, itemToCreate).subscribe(() => this.updateModel());
+            this.presentToastCreated();
           }
         }
       ]
     });
 
     await alert.present();
+  }
+
+  doneButtonCallback() {
+    const userId = this.authService.userDetails().uid;
+    for (const item of this.todoItems) {
+      if (item.selected) {
+        this.restService.removeTodoItem(userId, item.id).subscribe(() => this.updateModel());
+      }
+    }
   }
 
 }

@@ -23,20 +23,8 @@
     <ion-row justify-content-center align-items-center style='height: 100%'>
       <ion-col>
         <ion-button (click)="joinCallback()" [disabled]="flatCode === '' || result">Join Flat</ion-button>
+        <ion-button color="medium" (click)="backCallback()">Back</ion-button>
       </ion-col>
-    </ion-row>
-    <ion-row>
-        <div *ngIf="result === false">
-          <ion-col>
-            <h2>Invalid code, try again</h2>
-          </ion-col>
-        </div>
-      <div *ngIf="result === true">
-        <ion-col>
-          <h2>Flat joined!</h2>
-          <ion-button (click)="backCallback()" [disabled]="flatCode === ''">Go Home</ion-button>
-        </ion-col>
-      </div>
     </ion-row>
   </ion-grid>
 </ion-content>

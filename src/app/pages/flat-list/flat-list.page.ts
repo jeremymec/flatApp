@@ -1,9 +1,8 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Flat, RestService, User} from '../../services/rest.service';
+import {Flat, RestService, TodoItem, User} from '../../services/rest.service';
 import {AuthenticationService} from '../../services/authentication.service';
-import {NavController} from '@ionic/angular';
-import { Events } from '@ionic/angular';
+import {AlertController, NavController, ToastController} from '@ionic/angular';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-flat-list',
@@ -12,12 +11,12 @@ import { Events } from '@ionic/angular';
 })
 export class FlatListPage implements OnInit {
 
-  private flat = undefined;
+  private flat: Flat;
   private userId: string;
 
   constructor(private restService: RestService, private authService: AuthenticationService, private navCtrl: NavController,
-              private changeDetectorRef: ChangeDetectorRef) {
-
+              private changeDetectorRef: ChangeDetectorRef, private alertController: AlertController,
+              private socialSharing: SocialSharing, public toastController: ToastController ) {
   }
 
   ngOnInit() {
@@ -44,6 +43,58 @@ export class FlatListPage implements OnInit {
 
   leaveFlatCallback() {
     this.restService.updateUser(new User({uid: this.authService.userDetails().uid, flat_id: 'nil'})).subscribe(user => this.updateModel());
+  }
+
+  editNameCallback() {
+    this.presentAlertCreate();
+  }
+
+  shareButtonCallback() {
+    this.socialSharing.share('Your FlatAPP invite code is ' + this.flat.invite, 'Flat Invite Code');
+  }
+
+  async presentToastNameChanged() {
+    const toast = await this.toastController.create({
+      message: 'Name changed successfully',
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentAlertCreate() {
+    const alert = await this.alertController.create({
+      header: 'Edit Flat Name',
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          placeholder: 'Enter a new name'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Create',
+          handler: data => {
+            const userId = this.authService.userDetails().uid;
+            this.flat.name = data.name1;
+            this.restService.updateUsersFlat(userId, this.flat).subscribe((response) => {
+              this.flat = response;
+              this.updateModel();
+            });
+            this.presentToastNameChanged();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }

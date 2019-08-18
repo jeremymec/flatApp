@@ -34,6 +34,21 @@ export class TodoItem {
     content: string;
     // tslint:disable-next-line:variable-name
     due_date: string;
+    selected?: boolean;
+
+    // tslint:disable-next-line:ban-types
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
+    }
+}
+
+export class NewsPost {
+    id: number;
+    author: string;
+    title: string;
+    content: string;
+    // tslint:disable-next-line:variable-name
+    created_at: string;
 
     // tslint:disable-next-line:ban-types
     constructor(values: Object = {}) {
@@ -46,7 +61,7 @@ export class TodoItem {
 })
 export class RestService {
 
-  baseUrl = 'http://localhost:3000';
+  baseUrl = 'http://192.168.43.89:3000';
 
   constructor(private httpClient: HttpClient) {  }
 
@@ -62,7 +77,7 @@ export class RestService {
         }));
   }
 
-  public getUserById(userId: number) {
+  public getUserById(userId: string) {
     return this.httpClient
         .get(this.baseUrl + '/users/' + userId)
         .pipe(
@@ -122,6 +137,17 @@ export class RestService {
             );
     }
 
+    public updateUsersFlat(userId: string, flat: Flat) {
+        return this.httpClient
+            .patch(this.baseUrl + '/users/' + userId + '/flats', flat)
+            .pipe(
+                map(response => {
+                    console.log(response);
+                    return new Flat(response);
+                })
+            );
+    }
+
     public getFlatIdByInviteCode(inviteCode: string, userId: string) {
       return this.httpClient.get(this.baseUrl + '/flats/' + inviteCode).pipe(
           map(response => {
@@ -154,6 +180,40 @@ export class RestService {
     public createTodoItem(userId: string, item: TodoItem) {
         return this.httpClient
             .post<TodoItem>(this.baseUrl + '/users/' + userId + '/flats/todos/todo_items', item)
+            .pipe(
+                map(response => {
+                    console.log('response is:' + response);
+                    return response;
+                })
+            );
+    }
+
+    public removeTodoItem(userId: string, todoItemId: number) {
+      console.log('REMOVING TODO ITEM: ' + todoItemId);
+      return this.httpClient
+            .delete(this.baseUrl + '/users/' + userId + '/flats/todos/todo_items/' + todoItemId)
+            .pipe(
+                map(response => {
+                    console.log('response is:' + response.toString());
+                    return response;
+                })
+            );
+    }
+
+    public getNewsPostsByUserId(userId: string): Observable<NewsPost[]> {
+        return this.httpClient.get<NewsPost[]>(this.baseUrl + '/users/' + userId + '/flats/news/news_posts').pipe(
+            map(responses => {
+                return responses.map((response) => {
+                    console.log('Todo list resp: ' + response.content);
+                    return new NewsPost(response);
+                });
+            })
+        );
+    }
+
+    public createNewsPost(userId: string, post: NewsPost) {
+        return this.httpClient
+            .post<TodoItem>(this.baseUrl + '/users/' + userId + '/flats/news/news_posts', post)
             .pipe(
                 map(response => {
                     console.log('response is:' + response);
