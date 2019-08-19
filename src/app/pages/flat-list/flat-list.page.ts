@@ -11,6 +11,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 })
 export class FlatListPage implements OnInit {
 
+  // Stores the flat and the currently logged in user
   private flat: Flat;
   private userId: string;
 
@@ -53,6 +54,9 @@ export class FlatListPage implements OnInit {
     this.socialSharing.share('Your FlatAPP invite code is ' + this.flat.invite, 'Flat Invite Code');
   }
 
+  /**
+   * Presents a toast saying the name has been changed
+   */
   async presentToastNameChanged() {
     const toast = await this.toastController.create({
       message: 'Name changed successfully',
@@ -61,6 +65,10 @@ export class FlatListPage implements OnInit {
     toast.present();
   }
 
+  /**
+   * Presents an alert allowing the user to change the name.
+   * Alert sends a method to the rest service doing this.
+   */
   async presentAlertCreate() {
     const alert = await this.alertController.create({
       header: 'Edit Flat Name',

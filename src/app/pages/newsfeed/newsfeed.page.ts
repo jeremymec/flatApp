@@ -10,7 +10,8 @@ import {AuthenticationService} from '../../services/authentication.service';
 })
 export class NewsfeedPage implements OnInit {
 
-  private newsPosts: NewsPost[];
+    // A list of NewsPosts updated by the model
+    private newsPosts: NewsPost[];
 
   constructor(private navCtrl: NavController, private restService: RestService, private authSercice: AuthenticationService) { }
 

@@ -19,6 +19,11 @@ export class FlatJoinPage implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Called by the join button.
+   * Uses the rest service to attempt to get a flat by the invite code, and if the flat is valid, joins the flat.
+   * Displays appropriate prompts on success / failure.
+   */
   joinCallback() {
     this.restService.getFlatIdByInviteCode(this.flatCode, this.authService.userDetails().uid).subscribe(
         flat => this.restService.joinFlatById(flat.id, this.authService.userDetails().uid).subscribe(

@@ -13,6 +13,10 @@ import {RestService} from './services/rest.service';
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Checks if a user is currently logged in through firebase.
+ */
 export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
   canActivate(
@@ -33,6 +37,10 @@ export class AuthGuard implements CanActivate {
   }
 }
 
+/**
+ * Gets the userId from Firebase, then uses it to determine if the currently logged in user is in a flat.
+ * If not, returns false. If so, returns true.
+ */
 export class FlatGuard implements CanActivate {
   constructor(private router: Router, private restService: RestService) {}
   canActivate(

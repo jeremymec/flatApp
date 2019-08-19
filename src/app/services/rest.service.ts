@@ -4,6 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 
+/**
+ * A class for a User, used by the database service and the application.
+ * uid - The firebase uid code
+ * name - the users name, which in the context of this app is the email
+ * flat_id (optional) - the ID of the users flat
+ */
 export class User {
     // tslint:disable-next-line:variable-name
   uid: number;
@@ -18,6 +24,12 @@ export class User {
 
 }
 
+/**
+ * A class for a Flat, used by the database service and the application.
+ * id - The flat ID in the rails DB
+ * name - the flats name
+ * invite - flat invite code
+ */
 export class Flat {
     id?: number;
     name: string;
@@ -29,11 +41,15 @@ export class Flat {
     }
 }
 
+/**
+ * A class for a TodoItem, used by the database service and the application.
+ * id - The todoItem ID in the rails DB
+ * content - the items content
+ * selected - if the item is selected
+ */
 export class TodoItem {
     id: number;
     content: string;
-    // tslint:disable-next-line:variable-name
-    due_date: string;
     selected?: boolean;
 
     // tslint:disable-next-line:ban-types
@@ -42,6 +58,14 @@ export class TodoItem {
     }
 }
 
+/**
+ * A class for a NewsPost, used by the database service and the application.
+ * id - The post ID in the rails DB
+ * author - which user wrote the post (email)
+ * title - the title of the post
+ * content - the items content
+ * created_at - when the post was created
+ */
 export class NewsPost {
     id: number;
     author: string;
@@ -59,9 +83,15 @@ export class NewsPost {
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * This is the largest service in the application - the one that interacts with the rails database.
+ * These methods correspond to restful actions on a database accessed through the angular http service.
+ * Changing the baseUrl will change the IP all these actions connect to.
+ */
 export class RestService {
 
-  baseUrl = 'http://192.168.43.89:3000';
+  baseUrl = 'http://localhost:3000';
 
   constructor(private httpClient: HttpClient) {  }
 

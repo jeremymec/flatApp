@@ -13,6 +13,7 @@ import {Events, NavController} from '@ionic/angular';
 })
 export class FlatCreatePage implements OnInit {
 
+  // Stores the name of the flat the user enters, and the flat that is created.
   flatName: string;
   createdFlat: Flat;
 

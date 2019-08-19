@@ -15,6 +15,9 @@ export class NewsfeedCreatepostPage implements OnInit {
   errorMessage = '';
   successMessage = '';
 
+  /**
+   * The validatons messages to be displayed.
+   */
   validationMessages = {
     title: [
       { type: 'required', message: 'Please provide a title.' },
@@ -25,6 +28,9 @@ export class NewsfeedCreatepostPage implements OnInit {
   constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private restService: RestService,
               private authService: AuthenticationService, public toastController: ToastController) { }
 
+  /**
+   * This method sets up the forms.
+   */
   ngOnInit() {
     this.validationsForm = this.formBuilder.group({
       title: new FormControl('', Validators.compose([
@@ -35,6 +41,10 @@ export class NewsfeedCreatepostPage implements OnInit {
     });
   }
 
+  /**
+   * Called by the form, attempts to create a newspost.
+   * @param value The value of the fields in the form
+   */
   tryCreate(value) {
     const userId = this.authService.userDetails().uid;
     const authorName = this.authService.userDetails().email;
@@ -48,6 +58,9 @@ export class NewsfeedCreatepostPage implements OnInit {
         });
   }
 
+  /**
+   * Presents a toast saying the post has been created.
+   */
   async presentToastCreated() {
     const toast = await this.toastController.create({
       message: 'Post Created!',

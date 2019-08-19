@@ -35,6 +35,9 @@ export class TodoViewPage implements OnInit {
     });
   }
 
+  /**
+   * Presents a toast saying a task has been created
+   */
   async presentToastCreated() {
     const toast = await this.toastController.create({
       message: 'Task created!',
@@ -43,6 +46,10 @@ export class TodoViewPage implements OnInit {
     toast.present();
   }
 
+  /**
+   * Presents an alert to the user which allows them to create a task.
+   * Once the user clicks okay, sends a request to the rest service creating a task, and a prompt.
+   */
   async presentAlertCreate() {
     const alert = await this.alertController.create({
       header: 'Create a new Task',

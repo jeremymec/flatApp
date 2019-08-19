@@ -12,12 +12,16 @@ import { AppRoutingModule } from './app-routing.module';
 import * as firebase from 'firebase';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule, FirestoreSettingsToken} from '@angular/fire/firestore';
-import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
+import { AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import {AuthGuard, FlatGuard} from './services.guard';
 
+/**
+ * This is where all the components of the app are declared. It initializes the Firebase DB, and imports the necessary modules.
+ * Any additional providers like another Guard should be added here also.
+ */
 firebase.initializeApp(environment.firebase);
 @NgModule({
   declarations: [AppComponent],

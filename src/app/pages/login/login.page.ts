@@ -21,6 +21,7 @@ export class LoginPage implements OnInit {
   validationsForm: FormGroup;
   errorMessage = '';
 
+    // The validations messages displayed by the form
   validationMessages = {
     email: [
       { type: 'required', message: 'Email is required.' },
@@ -36,6 +37,10 @@ export class LoginPage implements OnInit {
       this.validationsForm.reset();
   }
 
+    /**
+     * Form callback, attempts to login the user
+     * @param value The value of the fields in the form
+     */
   loginUser(value) {
     this.authService.loginUser(value)
         .then(res => {
@@ -51,6 +56,9 @@ export class LoginPage implements OnInit {
     this.navCtrl.navigateForward('/register');
   }
 
+    /**
+     * Sets up the form
+     */
   ngOnInit() {
 
     this.validationsForm = this.formBuilder.group({

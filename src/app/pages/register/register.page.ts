@@ -14,6 +14,9 @@ export class RegisterPage implements OnInit {
   errorMessage = '';
   successMessage = '';
 
+  /**
+   * The messages displayed when the user does not fulfill the validations requirements.
+   */
   validationMessages = {
     email: [
       { type: 'required', message: 'Email is required.' },
@@ -31,6 +34,10 @@ export class RegisterPage implements OnInit {
       private formBuilder: FormBuilder
   ) { }
 
+  /**
+   * Called when the user submits the form, attempts to register the user with the details provided.
+   * @param value The value of the form items
+   */
   tryRegister(value) {
     this.authService.registerUser(value)
         .then(res => {
@@ -48,6 +55,9 @@ export class RegisterPage implements OnInit {
     this.navCtrl.navigateBack('');
   }
 
+  /**
+   * This method sets up the form with the correct validators.
+   */
   ngOnInit() {
     this.validationsForm = this.formBuilder.group({
       email: new FormControl('', Validators.compose([

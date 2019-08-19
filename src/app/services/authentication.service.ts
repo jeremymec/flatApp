@@ -6,6 +6,11 @@ import {error} from 'util';
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * This service is strictly for dealing with firebase auth.
+ * It logs the user in, and logs them out. It can be accessed by the rest of the application to get user information like ID.
+ */
 export class AuthenticationService {
 
   loggedInUserUid = null;

@@ -13,6 +13,10 @@ export class AppComponent {
 
   navigate: any;
 
+    /**
+     * The default ionic constructor for AppComponent, call on App init.
+     * This also creates the side menu before doing normal tasks.
+     */
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -29,6 +33,9 @@ export class AppComponent {
     });
   }
 
+    /**
+     * Any changes to the side menu should be made to the array inside this function.
+     */
   sideMenu() {
     this.navigate =
         [
