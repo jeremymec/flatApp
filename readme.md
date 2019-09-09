@@ -15,6 +15,6 @@ The app has a newsfeed, where members of the flat can post messages and reminder
 
 The app also has a "todo list", where different members of the flat can post tasks to a shared list. This is a useful way to keep track of things that have to be done in the flat. Any member of the flat can mark as task as done.
 
-<img src="./screenshots/taskList.png" width="400" height="700">
+<img src="./screenshots/TaskList.png" width="400" height="700">
 
 The application is functional with the API running on the same server, and can be downloaded and ran. However, it is still in development and their is no offical deployed version as of yet. More features are planned to be added before this happens, so watch this space :)
