@@ -11,7 +11,7 @@ This invite code can be shared using the app, or just given to anyone else with 
 
 The app has a newsfeed, where members of the flat can post messages and reminders that the other members can see. These can be as simple as "Who's Home?" or optionally can contain a paragraph for more detailed status updates.
 
-![newsFeed](/Users/jezza/Documents/University/swen325/flatApp/screenshots/newsFeed.png)
+![newsFeed](./screenshots/newsFeed.png)
 
 The app also has a "todo list", where different members of the flat can post tasks to a shared list. This is a useful way to keep track of things that have to be done in the flat. Any member of the flat can mark as task as done.
 
