@@ -18,3 +18,7 @@ The app also has a "todo list", where different members of the flat can post tas
 <img src="./screenshots/TaskList.png" width="400" height="700">
 
 The application is functional with the API running on the same server, and can be downloaded and ran. However, it is still in development and their is no offical deployed version as of yet. More features are planned to be added before this happens, so watch this space :)
+
+If the rails API is being served, the application can be ran from the Ionic CLI with the simple command.
+
+`ionic serve`
